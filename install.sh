@@ -15,4 +15,8 @@ ln -s "$dotfiles/polybar" .config/polybar
 rm -rf .config/picom
 ln -s "$dotfiles/picom" .config/picom
 
+#kitty
+rm -rf .config/kitty/kitty.conf
+ln -s "$dotfiles/kitty/kitty.conf" .config/kitty/kitty.conf
+
 popd
