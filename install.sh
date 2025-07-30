@@ -11,4 +11,8 @@ ln -s "$dotfiles/i3" .config/i3
 rm -rf .config/polybar
 ln -s "$dotfiles/polybar" .config/polybar
 
+#picom config
+rm -rf .config/picom
+ln -s "$dotfiles/picom" .config/picom
+
 popd
