@@ -1,0 +1,143 @@
+set $mod Mod4
+
+#i don't think this is ever used since i have no window titles
+font pango:monospace 8
+
+exec --no-startup-id dex --autostart --environment i3
+
+#organises my dual monitors, generated via arandr
+exec_always --no-startup-id "bash /home/raffi/.screenlayout/blah.sh"
+#start the compositor for rounded windows and transparency
+exec_always --no-startup-id "bash /home/raffi/.config/picom/launch.sh"
+#set the wallpaper
+exec_always --no-startup-id "/home/raffi/.local/bin/wal --backend haishoku -i /home/raffi/.config/i3/stump.jpg"
+#start polybar
+exec_always --no-startup-id "bash /home/raffi/.config/polybar/launch.sh"
+#start authorisation agent (needed when launching nautilus and stuff sometimes)
+exec --no-startup-id "/usr/lib/polkit-gnome-authentication-agent-1 &"
+#start notification daemon
+exec_always --no-startup-id "twmnd"
+
+#audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+#lock
+bindsym $mod+l exec "dm-tool switch-to-greeter"
+
+#dunno
+floating_modifier $mod
+
+#turn off borders
+for_window [class=".*"] border pixel 0
+
+#needs a gap between windows
+gaps inner 6px
+#not so much on the outside
+gaps outer 2px
+#none on the top because polybar also enforces a gap
+gaps top 0px
+
+#i think this shrinks the borders if you have just one window?
+smart_borders yes
+
+#kinda handy
+focus_follows_mouse yes
+
+#dunno
+default_floating_border none
+
+#usual terminal is kitty
+bindsym $mod+Return exec kitty
+#fallback terminal if kitty isn't working
+bindsym $mod+Shift+Return exec i3-sensible-terminal
+#screenshot
+bindsym $mod+p exec "flameshot gui"
+#i rarely use this
+bindsym $mod+e layout toggle split
+#emoji keyboard for zoomerisms
+bindsym $mod+period exec "rofimoji --skin-tone=neutral"
+
+#close a window
+bindsym $mod+Shift+q kill
+
+#hit this to launch a program (shell programs like poweroff work too)
+bindsym $mod+d exec --no-startup-id rofi -show run
+#switch between existing opened windows
+bindsym $mod+Shift+d exec --no-startup-id rofi -show window
+#this is like the top one but for programs with a desktop file. not much use.
+bindsym $mod+Shift+a exec --no-startup-id rofi -show drun
+
+#move between windows
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+#move windows around
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#set split methods
+bindsym $mod+h split h
+bindsym $mod+v split v
+#go fullscreen or back
+bindsym $mod+f fullscreen toggle
+
+#rarely use this either
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+#shift between workspaces
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+#move a window to a workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+#hot reload
+bindsym $mod+Shift+c reload
+#full restart including exec_always
+bindsym $mod+Shift+r restart
+#kill i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -B 'Yes' 'i3-msg exit'"
+
+#we don't really need this stuff because there's no window decorations
+set_from_resource $background i3wm.color0 #000000
+
+#class                 border       backgr.     text    indicator child_border                                                                     
+client.focused_inactive $background $background #d9d9d9 $background $background                                                                          
+client.unfocused        $background $background #d9d9d9 $background $background                                                                     
+client.focused          $background $background #000000 $background $background                                                                           
