@@ -1,5 +1,5 @@
 @import "~/.cache/wal/colors-rofi-dark"
 
 configuration {
-    font: "cascadia mono 20";
+    font: "Cascadia Mono Light 20";
 }
