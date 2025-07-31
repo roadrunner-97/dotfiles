@@ -19,4 +19,12 @@ ln -s "$dotfiles/picom" .config/picom
 rm -rf .config/kitty/kitty.conf
 ln -s "$dotfiles/kitty/kitty.conf" .config/kitty/kitty.conf
 
+#wal template for rofi
+rm -rf .config/wal/templates
+ln -s "$dotfiles/wal/templates" .config/wal
+
+#rofi conf
+rm -rf .config/rofi
+ln -s "$dotfiles/rofi" .config/rofi
+
 popd
