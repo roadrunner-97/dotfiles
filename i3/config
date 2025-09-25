@@ -10,7 +10,7 @@ exec_always --no-startup-id "bash /home/raffi/.screenlayout/blah.sh"
 #start the compositor for rounded windows and transparency
 exec_always --no-startup-id "bash /home/raffi/.config/picom/launch.sh"
 #set the wallpaper
-exec_always --no-startup-id "/home/raffi/.local/bin/wal --backend haishoku -i /home/raffi/.config/i3/stump.jpg"
+exec_always --no-startup-id "/home/raffi/.local/bin/wal --backend haishoku -i /home/raffi/.config/i3/pluto.jpg"
 #start polybar
 exec_always --no-startup-id "bash /home/raffi/.config/polybar/launch.sh"
 #start authorisation agent (needed when launching nautilus and stuff sometimes)
